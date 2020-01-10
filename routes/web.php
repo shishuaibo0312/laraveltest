@@ -26,7 +26,7 @@ Route::get('/', function () {
 // });
 
 //拉取代码
-	Route:any('getpull','Git\Gitpull@pull');
+	Route::any('getpull','Git\Gitpull@pull');
 //微信小程序后台首页
 	Route::get('wxlogin','Admin\Wxlogin@wxlogin');
 	Route::post('wxlogin_do','Admin\Wxlogin@wxlogin_do');
