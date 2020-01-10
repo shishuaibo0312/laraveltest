@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fdc31fec-a970-4a80-9bec-20dd306a9650" name="施帅波" url="http://39.97.176.192">
+        <fileTransfer host="39.97.176.192" port="22" rootFolder="/data/wwwroot/default/laraveltest" accessType="SFTP" password="dff9dfc2dfc3df9bdf9fdf9adf99df9adf9adf98df9edf9bdf9cdf92" username="root">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
