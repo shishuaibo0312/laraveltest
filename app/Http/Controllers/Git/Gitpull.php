@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Git;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class Getpull extends Controller
+class Gitpull extends Controller
 {
     //git推送到github后浏览器自动拉取pull
         function pull(){
