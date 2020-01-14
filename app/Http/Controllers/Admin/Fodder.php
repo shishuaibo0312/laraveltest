@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Model\Attention;
 use Illuminate\Http\Request;
 use App\Tools\Wechat;
 use App\Tools\Curl;
@@ -84,15 +85,40 @@ class Fodder extends Controller
 
     //文件上传
         function upload($file){
-        if(request()->file($file)->isValid()) {
-            $photo =request()->file($file);
-            $ext=$photo->getClientOriginalExtension ();   //获取文件后缀
-            $filename=md5(uniqid()).".".$ext;
-            $store_result = $photo->storeAs('uploads',$filename);
+                if(request()->file($file)->isValid()) {
+                    $photo =request()->file($file);
+                    $ext=$photo->getClientOriginalExtension ();   //获取文件后缀
+                    $filename=md5(uniqid()).".".$ext;
+                    $store_result = $photo->storeAs('uploads',$filename);
 
-            return $store_result;
+                    return $store_result;
+                }
+                exit('未获取到上传文件或上传过程出错');
+            }
+
+    //公众号的消息群发
+        function mass(){
+            return view('admin.fodder.mass');
         }
-        exit('未获取到上传文件或上传过程出错');
+
+        function mass_do(){
+            $data=Attention::where('is_del','=',1)->get()->toArray();
+           // dd($data);
+            $openid_list=array_column($data,'openid');
+        $msg=request()->msg;
+           // dd($msg);
+        $postData=[
+            "touser"=>$openid_list,
+            "msgtype"=>"text",
+            "text"=>[
+                "content"=>$msg
+            ]
+        ];
+        $access_token=wechat::getAccessToken();
+        $url="https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=".$access_token;
+        $postData=json_encode($postData,JSON_UNESCAPED_UNICODE);
+        $data=Curl::curlPost($url,$postData);
+        var_dump($data);die;
     }
 
 }

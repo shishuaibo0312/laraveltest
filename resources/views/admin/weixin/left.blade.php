@@ -65,6 +65,9 @@
                             <li>
                                 <a class="J_menuItem" href="{{url('/admin/fodderlist')}}">素材展示</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="{{url('/admin/mass')}}">公众号群发消息</a>
+                            </li>
 
                         </ul>
                     </li>

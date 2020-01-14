@@ -25,8 +25,9 @@ Route::get('/', function () {
 // Route::prefix('assay')->group(function () {
 // });
 
-//拉取代码
+//自动拉取代码
 	Route::any('getpull','Git\Gitpull@pull');
+
 //微信小程序后台首页
 	Route::get('wxlogin','Admin\Wxlogin@wxlogin');
 	Route::post('wxlogin_do','Admin\Wxlogin@wxlogin_do');
@@ -40,6 +41,8 @@ Route::prefix('admin')->group(function () {
 	Route::get('fodderlist','Admin\Fodder@list');
 	Route::post('getMeather','Admin\Index@getMeather');
 	Route::any('getfodder','Admin\Fodder@getfodder');
+	Route::any('mass','Admin\Fodder@mass');
+	Route::any('mass_do','Admin\Fodder@mass_do');
 });
 
 //接口
@@ -70,4 +73,6 @@ Route::prefix('menu')->group(function () {
 	Route::post('menuadd_do','Admin\Menu@add_do');
 	Route::get('menushow','Admin\Menu@show');
 	Route::get('getmenu','Admin\Menu@getmenu');
+	Route::any('test','Admin\Menu@test');
+	Route::any('auth','Admin\Menu@auth');
 });

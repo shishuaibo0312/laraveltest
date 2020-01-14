@@ -9,6 +9,7 @@ use App\Model\Fodders;
 use App\Model\Newes;
 use App\Model\Channels;
 use App\Model\Attention;
+use App\Tools\Curl;
 class Wechat extends Controller
 {
     function wechats()
@@ -170,6 +171,7 @@ class Wechat extends Controller
                   </Image>
                   </xml>";
         }
+
 //图片的下载
         if($xmlObj->MsgType == 'image'){
             $access_token=wechats::getAccessToken();
@@ -184,6 +186,8 @@ class Wechat extends Controller
            file_put_contents($place.$file_name,$data);
             //var_dump($res);
         }
+
+//视频的下载
         if($xmlObj->MsgType == 'video'){
             $access_token=wechats::getAccessToken();
             $media_id=$xmlObj->MediaId;
@@ -197,8 +201,8 @@ class Wechat extends Controller
             file_put_contents($place.$file_name,$data);
             //var_dump($res);
         }
-
     }
+
 
 
 
