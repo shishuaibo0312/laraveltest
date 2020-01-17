@@ -31,6 +31,7 @@ Route::get('/', function () {
 //微信小程序后台首页
 	Route::get('wxlogin','Admin\Wxlogin@wxlogin');
 	Route::post('wxlogin_do','Admin\Wxlogin@wxlogin_do');
+	Route::get('checkcode','Admin\Wxlogin@checkCode');   //验证验证码
 
 //素材管理
 Route::prefix('admin')->group(function () {

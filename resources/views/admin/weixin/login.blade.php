@@ -33,10 +33,11 @@
                     @csrf
                     <h4 class="no-margins">登录：</h4>
                     <p class="m-t-md">登录到H+后台主题UI框架</p>
-                    <input type="text" class="form-control uname" name="admin_name" placeholder="用户名" />
-                    <input type="password" class="form-control pword m-b" name="admin_pwd" placeholder="密码" />
-                    <a href="">忘记密码了？</a>
-                    <button class="btn btn-success btn-block">登录</button>
+                    <input type="text" class="form-control uname" name="admin_name" placeholder="用户名" id="name" />
+                    <input type="password" class="form-control pword m-b" name="admin_pwd" placeholder="密码"  id="pwd"/>
+                    <input type="text" name="code"  class="form-control" placeholder="验证码" id="code" />
+                    <input type="button" value="点击获取" style="color:#00ffff" class="click">
+                    <input type="button" value="登录"  id="submit" class="btn btn-success btn-block">
                 </form>
             </div>
         </div>
@@ -49,3 +50,54 @@
 </body>
 
 </html>
+<script src="/jquery.js"></script>
+<script>
+    $(function(){
+        //点击获取验证码
+        $(document).on('click','.click',function(){
+            var code=$("#code").val();
+            var name=$('#name').val();
+            var pwd=$('#pwd').val();
+            if(name==''){
+                alert('账号必填');
+                return false;
+            }
+            if(pwd==''){
+                alert('密码必填');
+                return false;
+            }
+            $.ajax({
+                url: "{{url('/checkcode')}}",
+                data:{name:name,pwd:pwd},
+            })
+        })
+
+        $(document).on('click','#submit',function(){
+            var code=$("#code").val();
+            var name=$('#name').val();
+            var pwd=$('#pwd').val();
+            $.ajax({
+                method: "POST",
+                url: "{{url('/wxlogin_do')}}",
+                data:{name:name,pwd:pwd},
+            }).done(function(res) {
+                //console.log(res);
+                if(res=="no"){
+                    alert('账号或密码不正确');
+                    return false;
+                }else if(res==1){
+                   alert('验证码已过期');
+                    return false;
+                }else{
+                    if(res['code']==code){
+                        alert('登陆成功');location.href='/admin/left';
+                    }else{
+                        alert('验证码错误');
+                        return false;
+                    }
+                }
+            });
+        })
+    })
+</script>
+

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Tools\Wechat;
 use App\Tools\Curl;
+use Illuminate\Support\Facades\Redis;
 class Menu extends Controller
 {
     //菜单管理
@@ -20,6 +21,7 @@ class Menu extends Controller
 
     //模拟菜单的添加
         function getmenu(){
+            //echo phpinfo();die;
             $access_token=Wechat::getAccessToken();
             $url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
             $postData=[
@@ -33,14 +35,14 @@ class Menu extends Controller
                         "name"  => "工具",
                         "sub_button"    => [
                             [
-                                "type"  => "scancode_push",
-                                "name"  => "扫一扫",
-                                "key"   => "scan111"
+                                "type"  => "view",
+                                "name"  => "登录后台",
+                                "url"   => "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaaa2d2a93479357f&redirect_uri=http%3A%2F%2F1906shishuaibo.comcto.com%2Fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
                             ],
                             [
-                                "type"  => "pic_sysphoto",
-                                "name"  => "拍照",
-                                "key"   => "photo111"
+                                "type"=> "view",
+                                 "name"=> "签到",
+                                 "url"=> "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaaa2d2a93479357f&redirect_uri=http%3A%2F%2F1906shishuaibo.comcto.com%2Fmenu%2Fauth&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
                             ]
                         ]
                     ],
@@ -70,6 +72,7 @@ class Menu extends Controller
     {
         // 接收 code
         $code = $_GET['code'];
+        //echo '<pre>';print_r($code);echo '</pre>';die;
         //换取access_token
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('MENU_APPID').'&secret='.env('MENU_SECRET').'&code='.$code.'&grant_type=authorization_code';
         $json_data = file_get_contents($url);
@@ -95,6 +98,7 @@ class Menu extends Controller
         {
             $key = 'h:user_info:'.$v;
             $u = Redis::hGetAll($key);
+           // echo '<pre>';print_r($u);echo '</pre>';die;
             if(empty($u)){
                 continue;
             }

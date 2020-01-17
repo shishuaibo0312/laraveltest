@@ -201,9 +201,23 @@ class Wechat extends Controller
             file_put_contents($place.$file_name,$data);
             //var_dump($res);
         }
-    }
 
+//音频的下载
+        if($xmlObj->MsgType == 'voice'){
+            $access_token=wechats::getAccessToken();
+            $media_id=$xmlObj->MediaId;
+            $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$media_id;
+            // var_dump($url);die;
+            //$data=Curl::curlGet($url);
+            //var_dump($data);
+            $file_name=date("Ymdhis").rand(1111,9999).'.mp3';
+            $data=file_get_contents($url);
+            $place='weixin/voice/';
+            file_put_contents($place.$file_name,$data);
+            //var_dump($res);
 
+        }
 
+}
 
 }
