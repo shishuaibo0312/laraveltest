@@ -1,5 +1,5 @@
 
-echo 111;die;
+echo 222222;die;
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
