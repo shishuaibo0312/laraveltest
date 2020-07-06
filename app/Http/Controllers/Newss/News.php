@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Newes;
 class News extends Controller
 {
+
     //添加的视图
     function add(){
         return view('new.add');

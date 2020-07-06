@@ -118,7 +118,7 @@ class Fodder extends Controller
         $url="https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=".$access_token;
         $postData=json_encode($postData,JSON_UNESCAPED_UNICODE);
         $data=Curl::curlPost($url,$postData);
-        var_dump($data);die;
+        //var_dump($data);die;
     }
 
 }

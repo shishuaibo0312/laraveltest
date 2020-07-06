@@ -24,6 +24,15 @@ Route::get('/', function () {
 //路由分组
 // Route::prefix('assay')->group(function () {
 // });
+//测试
+	Route::any('test1','Test\Testcontroller@test1');
+	Route::any('test2','Test\Testcontroller@test2');
+	Route::any('test3','Test\Testcontroller@test3');
+	Route::any('test4','Test\Testcontroller@test4');
+	Route::any('test5','Test\Testcontroller@test5');
+	Route::any('test6','Test\Testcontroller@test6');
+	Route::any('test7','Test\Testcontroller@test7');
+	Route::any('test8','Test\Testcontroller@test8');
 
 //自动拉取代码
 	Route::any('getpull','Git\Gitpull@pull');
